@@ -18,7 +18,6 @@ public class PropriedadeArquivoDAO implements PropriedadeDAO {
     }
 
     public List<Propriedade> listarTodas() {
-        // Implementação omitida aqui por depender de instância de proprietário para atribuir
         return new ArrayList<>();
     }
 }

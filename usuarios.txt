@@ -1,4 +1,0 @@
-Cliente;ana;1;2
-Proprietario;anab;2;3
-Cliente;ana;ana1;1
-Proprietario;thi;thi1;2

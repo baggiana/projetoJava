@@ -21,7 +21,6 @@ public class ReservaArquivoDAO implements ReservaDAO {
         }
     }
 
-    // Adicione os parâmetros para as listas de propriedades e clientes já carregadas
     public List<Reserva> listarTodas(List<Propriedade> propriedades, List<Cliente> clientes) {
         List<Reserva> reservas = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(ARQUIVO))) {
@@ -35,7 +34,6 @@ public class ReservaArquivoDAO implements ReservaDAO {
                 String emailCliente = partes[1];
                 Date checkIn = sdf.parse(partes[2]);
                 Date checkOut = sdf.parse(partes[3]);
-                // double custoTotal = Double.parseDouble(partes[4]); // Não precisa, será recalculado
 
                 Propriedade propriedade = propriedades.stream()
                         .filter(p -> p.getTitulo().equals(tituloPropriedade))
