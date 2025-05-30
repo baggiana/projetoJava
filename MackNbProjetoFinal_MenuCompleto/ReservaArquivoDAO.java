@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +9,11 @@ public class ReservaArquivoDAO implements ReservaDAO {
 
     public void salvar(Reserva reserva) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARQUIVO, true))) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String checkInStr = sdf.format(reserva.getCheckIn());
+            String checkOutStr = sdf.format(reserva.getCheckOut());
             writer.write(reserva.getPropriedade().getTitulo() + ";" + reserva.getCliente().getEmail() + ";" +
-                         reserva.getCheckIn().getTime() + ";" + reserva.getCheckOut().getTime() + ";" +
+                         checkInStr + ";" + checkOutStr + ";" +
                          reserva.getCustoTotal());
             writer.newLine();
         } catch (IOException e) {
@@ -22,14 +26,15 @@ public class ReservaArquivoDAO implements ReservaDAO {
         List<Reserva> reservas = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(ARQUIVO))) {
             String linha;
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(";");
                 if (partes.length < 5) continue;
 
                 String tituloPropriedade = partes[0];
                 String emailCliente = partes[1];
-                long checkInMillis = Long.parseLong(partes[2]);
-                long checkOutMillis = Long.parseLong(partes[3]);
+                Date checkIn = sdf.parse(partes[2]);
+                Date checkOut = sdf.parse(partes[3]);
                 // double custoTotal = Double.parseDouble(partes[4]); // Não precisa, será recalculado
 
                 Propriedade propriedade = propriedades.stream()
@@ -41,11 +46,11 @@ public class ReservaArquivoDAO implements ReservaDAO {
                         .findFirst().orElse(null);
 
                 if (propriedade != null && cliente != null) {
-                    Reserva reserva = new Reserva(propriedade, cliente, new Date(checkInMillis), new Date(checkOutMillis));
+                    Reserva reserva = new Reserva(propriedade, cliente, checkIn, checkOut);
                     reservas.add(reserva);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return reservas;

@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reserva {
@@ -44,21 +45,23 @@ public class Reserva {
     }
 
     public void imprimirDetalhes() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Confira os detalhes da reserva: ");
         System.out.println("Propriedade: " + propriedade.getTitulo());
         System.out.println("Reservado por: " + cliente.getNome() + ", " + cliente.getEmail());
-        System.out.println("Check In: " + checkIn);
-        System.out.println("Check Out: " + checkOut);
+        System.out.println("Check In: " + sdf.format(checkIn));
+        System.out.println("Check Out: " + sdf.format(checkOut));
         System.out.println("Custo Total: R$ " + custoTotal);
     }
 
     @Override
     public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return "Reserva{" +
                 "propriedade=" + propriedade.getTitulo() +
                 ", cliente=" + cliente.getNome() +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
+                ", checkIn=" + sdf.format(checkIn) +
+                ", checkOut=" + sdf.format(checkOut) +
                 ", custoTotal=" + custoTotal +
                 '}';
     }

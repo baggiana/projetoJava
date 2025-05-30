@@ -3,6 +3,7 @@
  */
 
 import java.util.*;
+import java.text.SimpleDateFormat;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -211,12 +212,13 @@ public class Main {
             return;
         }
         try {
-            System.out.print("Data check-in (timestamp): ");
-            long in = Long.parseLong(scanner.nextLine());
-            System.out.print("Data check-out (timestamp): ");
-            long out = Long.parseLong(scanner.nextLine());
-            Date checkIn = new Date(in);
-            Date checkOut = new Date(out);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            System.out.print("Data check-in (dd/MM/yyyy): ");
+            String inStr = scanner.nextLine();
+            System.out.print("Data check-out (dd/MM/yyyy): ");
+            String outStr = scanner.nextLine();
+            Date checkIn = sdf.parse(inStr);
+            Date checkOut = sdf.parse(outStr);
             Reserva r = new Reserva(p, cliente, checkIn, checkOut);
             cliente.realizarReserva(p, checkIn, checkOut);
             reservaDAO.salvar(r);

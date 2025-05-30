@@ -1,1 +1,1 @@
-Casa;CasaChique;É uma casa chique.;Alphaville;-1;1000.0;anac@gmail.com;true
+Casa;qw;qw;1;-1;1.0;thi1;true
