@@ -1,0 +1,2 @@
+Cliente;Ana Luisa;ana@gmail.com;Ana123
+Proprietario;Ana Clara;anac@gmail.com;Anac123
